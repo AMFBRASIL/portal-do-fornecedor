@@ -5,28 +5,17 @@ import { Button } from "@/components/ui/button";
 import { LEGAL_DISCLAIMER, SITE } from "@/lib/site";
 import { trackEvent } from "@/lib/analytics";
 import { useTriage } from "@/components/site/triage-context";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/contato")({
   component: ContatoPage,
-  head: () => ({
-    meta: [
-      { title: `Contato | ${SITE.name}` },
-      {
-        name: "description",
-        content:
-          "Fale com o portal de orientação sobre licitações, SICAF e Compras.gov.br ou faça a pré-triagem gratuita em dois minutos.",
-      },
-      { property: "og:title", content: `Contato — ${SITE.name}` },
-      {
-        property: "og:description",
-        content: "Canais de contato e pré-triagem gratuita para empresas interessadas em licitar.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/contato" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [{ rel: "canonical", href: "/contato" }],
-  }),
+  head: () =>
+    pageHead({
+      title: "Contato",
+      description:
+        "Fale com o portal de orientação sobre cadastro no SICAF, licitações e Compras.gov.br ou faça a pré-triagem gratuita em dois minutos.",
+      path: "/contato",
+    }),
 });
 
 function ContatoPage() {

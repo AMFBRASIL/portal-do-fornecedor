@@ -1,45 +1,31 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { ARTICLES } from "@/lib/articles";
-import { SITE } from "@/lib/site";
 import { trackEvent } from "@/lib/analytics";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
+import { breadcrumbSchema, jsonLdScript, pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/conteudos/")({
   component: ConteudosPage,
-  head: () => ({
-    meta: [
-      { title: `Central de Conhecimento sobre Licitações | ${SITE.name}` },
-      {
-        name: "description",
-        content:
-          "Guias práticos sobre licitações públicas, SICAF, Compras.gov.br, documentos, certidões e oportunidades para empresas de todos os portes.",
-      },
-      { property: "og:title", content: "Central de conhecimento sobre licitações" },
-      {
-        property: "og:description",
-        content:
-          "Artigos aprofundados sobre como participar de licitações, regularizar o SICAF e encontrar oportunidades públicas.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/conteudos" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [{ rel: "canonical", href: "/conteudos" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Início", item: "/" },
-            { "@type": "ListItem", position: 2, name: "Conteúdos", item: "/conteudos" },
-          ],
-        }),
-      },
-    ],
-  }),
+  head: () => {
+    const head = pageHead({
+      title: "Central de Conhecimento: SICAF, Licitações e Compras.gov.br",
+      description:
+        "Guias práticos sobre cadastro no SICAF, licitações públicas, Compras.gov.br, documentos, certidões e oportunidades para empresas de todos os portes.",
+      path: "/conteudos",
+    });
+    return {
+      ...head,
+      scripts: [
+        jsonLdScript(
+          breadcrumbSchema([
+            { name: "Início", path: "/" },
+            { name: "Conteúdos", path: "/conteudos" },
+          ]),
+        ),
+      ],
+    };
+  },
 });
 
 function ConteudosPage() {
@@ -49,11 +35,11 @@ function ConteudosPage() {
       <header className="mt-6 max-w-3xl">
         <p className="eyebrow">Central de conhecimento</p>
         <h1 className="mt-4 text-3xl font-extrabold sm:text-5xl">
-          Central de conhecimento sobre licitações
+          Central de conhecimento sobre SICAF e licitações
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          Conteúdo original e prático sobre participação em licitações, cadastro de fornecedores,
-          documentação e oportunidades em órgãos públicos.
+          Conteúdo original sobre cadastro no SICAF, participação em licitações, documentação e
+          oportunidades em órgãos públicos.
         </p>
       </header>
 

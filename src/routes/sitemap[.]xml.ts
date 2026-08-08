@@ -1,29 +1,33 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { ARTICLES } from "@/lib/articles";
+import { SITE } from "@/lib/site";
 
-// TODO: replace with your project URL once a project name or custom domain is set.
-const BASE_URL = "";
+const BASE_URL = SITE.url.replace(/\/$/, "");
 
 interface SitemapEntry {
   path: string;
   changefreq?: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
   priority?: string;
+  lastmod?: string;
 }
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
+        const today = new Date().toISOString().slice(0, 10);
         const entries: SitemapEntry[] = [
-          { path: "/", changefreq: "weekly", priority: "1.0" },
-          { path: "/conteudos", changefreq: "weekly", priority: "0.8" },
+          { path: "/", changefreq: "weekly", priority: "1.0", lastmod: today },
+          { path: "/cadastro-no-sicaf", changefreq: "weekly", priority: "1.0", lastmod: today },
+          { path: "/conteudos", changefreq: "weekly", priority: "0.9", lastmod: today },
           ...ARTICLES.map((a) => ({
             path: `/conteudos/${a.slug}`,
             changefreq: "monthly" as const,
-            priority: "0.7",
+            priority: a.topic === "SICAF" || a.slug === "cadastro-no-sicaf" ? "0.9" : "0.7",
+            lastmod: today,
           })),
-          { path: "/contato", changefreq: "yearly", priority: "0.5" },
+          { path: "/contato", changefreq: "yearly", priority: "0.5", lastmod: today },
           { path: "/politica-de-privacidade", changefreq: "yearly", priority: "0.3" },
           { path: "/termos-de-uso", changefreq: "yearly", priority: "0.3" },
           { path: "/politica-de-cookies", changefreq: "yearly", priority: "0.3" },
@@ -32,7 +36,8 @@ export const Route = createFileRoute("/sitemap.xml")({
         const urls = entries.map((e) =>
           [
             `  <url>`,
-            `    <loc>${BASE_URL}${e.path}</loc>`,
+            `    <loc>${BASE_URL}${e.path === "/" ? "/" : e.path}</loc>`,
+            e.lastmod ? `    <lastmod>${e.lastmod}</lastmod>` : null,
             e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
             e.priority ? `    <priority>${e.priority}</priority>` : null,
             `  </url>`,
@@ -50,7 +55,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 
         return new Response(xml, {
           headers: {
-            "Content-Type": "application/xml",
+            "Content-Type": "application/xml; charset=utf-8",
             "Cache-Control": "public, max-age=3600",
           },
         });

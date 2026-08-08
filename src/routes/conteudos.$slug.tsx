@@ -12,6 +12,14 @@ import {
 } from "@/components/ui/accordion";
 import { useTriage } from "@/components/site/triage-context";
 import { trackEvent } from "@/lib/analytics";
+import {
+  absoluteUrl,
+  breadcrumbSchema,
+  faqSchema,
+  howToSchema,
+  jsonLdScript,
+  pageHead,
+} from "@/lib/seo";
 
 export const Route = createFileRoute("/conteudos/$slug")({
   loader: ({ params }) => {
@@ -23,57 +31,77 @@ export const Route = createFileRoute("/conteudos/$slug")({
   head: ({ params, loaderData }) => {
     const article = loaderData?.article as Article | undefined;
     if (!article) return {};
-    const url = `/conteudos/${params.slug}`;
-    return {
-      meta: [
-        { title: `${article.title} | ${SITE.name}` },
-        { name: "description", content: article.description },
-        { property: "og:title", content: article.title },
-        { property: "og:description", content: article.description },
-        { property: "og:type", content: "article" },
-        { property: "og:url", content: url },
-        { name: "twitter:card", content: "summary_large_image" },
+    const path = `/conteudos/${params.slug}`;
+    const url = absoluteUrl(path);
+    const head = pageHead({
+      title: article.title,
+      description: article.description,
+      path,
+      type: "article",
+      keywords: [
+        article.topic,
+        "SICAF",
+        "cadastro no SICAF",
+        "licitações públicas",
+        ...article.h1.toLowerCase().split(/\s+/).slice(0, 6),
       ],
-      links: [{ rel: "canonical", href: url }],
-      scripts: [
-        {
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            headline: article.h1,
+    });
+
+    const scripts = [
+      jsonLdScript({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: article.h1,
+        description: article.description,
+        inLanguage: "pt-BR",
+        mainEntityOfPage: url,
+        url,
+        author: { "@type": "Organization", name: SITE.name, url: SITE.url },
+        publisher: {
+          "@type": "Organization",
+          name: SITE.name,
+          url: SITE.url,
+          logo: { "@type": "ImageObject", url: absoluteUrl(SITE.logo) },
+        },
+        image: absoluteUrl(SITE.ogImage),
+        about:
+          article.topic === "SICAF"
+            ? {
+                "@type": "Thing",
+                name: "SICAF",
+                alternateName: "Cadastro no SICAF",
+              }
+            : undefined,
+      }),
+      jsonLdScript(faqSchema(article.faq)),
+      jsonLdScript(
+        breadcrumbSchema([
+          { name: "Início", path: "/" },
+          { name: "Conteúdos", path: "/conteudos" },
+          { name: article.h1, path },
+        ]),
+      ),
+    ];
+
+    if (article.slug === "cadastro-no-sicaf") {
+      scripts.push(
+        jsonLdScript(
+          howToSchema({
+            name: "Como fazer o cadastro no SICAF",
             description: article.description,
-            inLanguage: "pt-BR",
-            mainEntityOfPage: url,
-            publisher: { "@type": "Organization", name: SITE.name },
+            steps: article.blocks
+              .filter((b) => b.heading && (b.paragraphs?.length || b.list?.length))
+              .slice(0, 6)
+              .map((b) => ({
+                name: b.heading,
+                text: b.paragraphs?.[0] ?? b.list?.join("; ") ?? b.heading,
+              })),
           }),
-        },
-        {
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: article.faq.map((f) => ({
-              "@type": "Question",
-              name: f.q,
-              acceptedAnswer: { "@type": "Answer", text: f.a },
-            })),
-          }),
-        },
-        {
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Início", item: "/" },
-              { "@type": "ListItem", position: 2, name: "Conteúdos", item: "/conteudos" },
-              { "@type": "ListItem", position: 3, name: article.h1, item: url },
-            ],
-          }),
-        },
-      ],
-    };
+        ),
+      );
+    }
+
+    return { ...head, scripts };
   },
 });
 

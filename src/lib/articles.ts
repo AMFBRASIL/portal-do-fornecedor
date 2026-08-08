@@ -28,6 +28,132 @@ const OFICIAL = [
 
 export const ARTICLES: Article[] = [
   {
+    slug: "cadastro-no-sicaf",
+    title: "Cadastro no SICAF: Passo a Passo Completo 2026",
+    h1: "Cadastro no SICAF: passo a passo completo",
+    description:
+      "Guia completo de cadastro no SICAF: o que é, documentos exigidos, níveis de habilitação e como cadastrar sua empresa para licitar no governo federal.",
+    topic: "SICAF",
+    intro:
+      "O cadastro no SICAF é o caminho oficial para empresas que querem participar de licitações do governo federal e de muitos órgãos que usam o Compras.gov.br. Este guia organiza o processo em etapas claras — do que preparar antes de entrar no sistema até a validação dos níveis de habilitação.",
+    blocks: [
+      {
+        heading: "O que é o cadastro no SICAF",
+        paragraphs: [
+          "O SICAF (Sistema de Cadastramento Unificado de Fornecedores) é o cadastro usado pela Administração Pública Federal para registrar e habilitar fornecedores. Com o cadastro regular, o órgão consegue consultar automaticamente a situação jurídica, fiscal, trabalhista e, conforme o caso, econômico-financeira e técnica da sua empresa.",
+          "Na prática, sem cadastro no SICAF — ou com cadastro irregular — a empresa costuma ser inabilitada mesmo tendo o melhor preço. Por isso o cadastro no SICAF é uma etapa obrigatória da jornada de quem quer vender para o governo.",
+        ],
+      },
+      {
+        heading: "Antes de cadastrar: checklist de preparação",
+        paragraphs: [
+          "Evite começar o cadastro no SICAF sem a documentação em mãos. A preparação reduz retrabalho e pendências.",
+        ],
+        list: [
+          "CNPJ ativo e CNAE compatível com o que você pretende fornecer",
+          "Contrato social, estatuto ou requerimento de empresário atualizado",
+          "Documentos dos sócios ou representantes legais",
+          "Certidões federais, estaduais, municipais, FGTS e trabalhista válidas",
+          "Demonstrações contábeis do último exercício, quando aplicável",
+          "Acesso gov.br com selo prata ou superior (ou certificado digital) do responsável",
+        ],
+      },
+      {
+        heading: "Passo a passo do cadastro no SICAF",
+        paragraphs: [
+          "O cadastramento é feito nos canais oficiais do Portal de Compras do Governo Federal. O fluxo geral é:",
+        ],
+        list: [
+          "Acesse o ambiente oficial do SICAF / Compras.gov.br com login gov.br",
+          "Inicie o credenciamento da empresa com o CNPJ",
+          "Preencha e anexe os dados de habilitação jurídica",
+          "Inclua as certidões de regularidade fiscal e trabalhista",
+          "Complemente qualificação econômico-financeira e técnica, conforme a necessidade",
+          "Revise cada nível e confirme que não há pendências apontadas pelo sistema",
+        ],
+      },
+      {
+        heading: "Níveis de cadastramento que você precisa entender",
+        paragraphs: [
+          "O cadastro no SICAF é organizado em níveis. Nem toda contratação exige todos eles, mas quanto mais completo e atualizado o cadastro, menor o risco de inabilitação.",
+        ],
+        list: [
+          "Credenciamento — dados básicos da empresa e do representante",
+          "Habilitação jurídica — atos constitutivos e representação",
+          "Regularidade fiscal federal e trabalhista",
+          "Regularidade fiscal estadual e/ou municipal",
+          "Qualificação econômico-financeira",
+          "Qualificação técnica — quando o edital exigir",
+        ],
+      },
+      {
+        heading: "Erros comuns que atrasam o cadastro no SICAF",
+        list: [
+          "Certidões vencidas no dia da habilitação",
+          "Divergência entre endereço do CNPJ e do cadastro",
+          "Quadro societário desatualizado",
+          "Balanço ou demonstrações do exercício errado",
+          "Representante sem vínculo correto no sistema",
+          "Começar a disputar editais antes de validar todos os níveis necessários",
+        ],
+      },
+      {
+        heading: "Cadastro no SICAF para MEI e pequenas empresas",
+        paragraphs: [
+          "MEI, microempresa e empresa de pequeno porte podem — e devem — fazer o cadastro no SICAF quando forem participar de contratações federais. Há tratamento diferenciado previsto na Lei Complementar nº 123/2006 (preferência em empate e prazo para regularização fiscal em certas situações), mas isso não dispensa a organização documental nem a regularidade do cadastro.",
+        ],
+      },
+      {
+        heading: "Depois do cadastro: mantenha o SICAF regular",
+        paragraphs: [
+          "O cadastro no SICAF não é um certificado eterno. Ele permanece regular enquanto os documentos estiverem válidos. Estabeleça uma rotina mensal de conferência, especialmente se a empresa participa de disputas com frequência.",
+          "Se você já tem SICAF e precisa atualizar certidões, balanço ou dados cadastrais, o caminho é a renovação/atualização — não um novo cadastro do zero.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: "O cadastro no SICAF é gratuito?",
+        a: "O cadastramento nos sistemas oficiais do governo não cobra taxa de inscrição. Serviços privados de orientação, preparação documental e acompanhamento são opcionais e contratados à parte.",
+      },
+      {
+        q: "Quanto tempo leva para fazer o cadastro no SICAF?",
+        a: "Com a documentação organizada e certidões válidas, muitas empresas concluem o cadastro em poucos dias. O prazo aumenta quando há pendências societárias, contábeis ou certidões vencidas.",
+      },
+      {
+        q: "Preciso de SICAF para licitar em estados e municípios?",
+        a: "Depende do edital. Muitos entes usam o SICAF/Compras.gov.br; outros mantêm cadastros próprios. Sempre confira a exigência no edital da contratação.",
+      },
+      {
+        q: "Posso cadastrar no SICAF sozinho?",
+        a: "Sim. O acesso é feito pelo responsável da empresa nos canais oficiais, com gov.br ou certificado digital. Este portal oferece orientação independente; o atendimento especializado da CADBRASIL é opcional quando a empresa prefere apoio operacional.",
+      },
+      {
+        q: "Qual a diferença entre SICAF e Compras.gov.br?",
+        a: "O SICAF concentra o cadastro e a habilitação do fornecedor. O Compras.gov.br é o ambiente onde as contratações acontecem: avisos, propostas, disputa e comunicação com o órgão.",
+      },
+    ],
+    related: [
+      "o-que-e-sicaf",
+      "documentos-exigidos-no-sicaf",
+      "como-renovar-o-sicaf",
+      "como-participar-de-licitacao-publica",
+    ],
+    ctaCategory: "cadastro-sicaf",
+    ctaText: "Preciso de ajuda com o cadastro no SICAF",
+    sources: [
+      ...OFICIAL,
+      {
+        label: "SICAF Digital — Portal de Compras do Governo Federal",
+        url: "https://www.gov.br/compras/pt-br/sistemas/conheca-o-compras/sicaf-digital/sicaf-digital",
+      },
+      {
+        label: "Cadastrar-se como fornecedor da Administração Pública",
+        url: "https://www.gov.br/pt-br/servicos/cadastrar-se-como-fornecedor-da-administracao-publica",
+      },
+    ],
+  },
+  {
     slug: "como-participar-de-licitacao-publica",
     title: "Como Participar de uma Licitação Pública: Guia Prático",
     h1: "Como participar de uma licitação pública",
@@ -93,9 +219,9 @@ export const ARTICLES: Article[] = [
       },
     ],
     related: [
+      "cadastro-no-sicaf",
       "o-que-e-sicaf",
       "como-encontrar-licitacoes",
-      "o-que-analisar-antes-de-participar-de-um-edital",
     ],
     ctaCategory: "comecar",
     ctaText: "Quero entender o que minha empresa precisa para começar",
@@ -206,9 +332,9 @@ export const ARTICLES: Article[] = [
       },
     ],
     related: [
+      "cadastro-no-sicaf",
       "documentos-exigidos-no-sicaf",
       "como-renovar-o-sicaf",
-      "como-funciona-o-compras-gov-br",
     ],
     ctaCategory: "cadastro-sicaf",
     ctaText: "Preciso de ajuda com o cadastro no SICAF",
@@ -219,8 +345,8 @@ export const ARTICLES: Article[] = [
     title: "Quais Documentos São Exigidos no SICAF",
     h1: "Quais documentos são exigidos no SICAF",
     description:
-      "Checklist dos documentos e certidões normalmente solicitados no cadastro de fornecedores, organizados por tipo de habilitação.",
-    topic: "Documentação",
+      "Checklist dos documentos e certidões normalmente solicitados no cadastro no SICAF, organizados por tipo de habilitação.",
+    topic: "SICAF",
     intro:
       "A lista exata varia conforme o porte da empresa, a natureza jurídica e o objeto que ela pretende fornecer. Ainda assim, existe um conjunto de documentos que aparece na maioria dos cadastros e contratações.",
     blocks: [
@@ -265,7 +391,7 @@ export const ARTICLES: Article[] = [
         a: "Pode levar à inabilitação. Microempresas e empresas de pequeno porte têm prazo legal para regularização fiscal em determinadas situações, conforme a Lei Complementar nº 123/2006.",
       },
     ],
-    related: ["o-que-e-sicaf", "como-emitir-e-acompanhar-certidoes", "como-renovar-o-sicaf"],
+    related: ["cadastro-no-sicaf", "o-que-e-sicaf", "como-renovar-o-sicaf"],
     ctaCategory: "documentacao",
     ctaText: "Quero orientação sobre a minha documentação",
   },
@@ -274,10 +400,10 @@ export const ARTICLES: Article[] = [
     title: "Como Atualizar ou Renovar o SICAF",
     h1: "Como atualizar ou renovar o SICAF",
     description:
-      "O que fazer quando o cadastro de fornecedor está vencido, incompleto ou com dados desatualizados, e como evitar novas irregularidades.",
+      "O que fazer quando o cadastro no SICAF está vencido, incompleto ou com dados desatualizados, e como evitar novas irregularidades.",
     topic: "SICAF",
     intro:
-      "Não existe uma renovação única e anual: o cadastro fica regular enquanto os documentos que o compõem estiverem válidos. Atualizar significa substituir o que venceu e corrigir o que mudou na empresa.",
+      "Não existe uma renovação única e anual: o cadastro no SICAF fica regular enquanto os documentos que o compõem estiverem válidos. Atualizar significa substituir o que venceu e corrigir o que mudou na empresa.",
     blocks: [
       {
         heading: "Levante o que está vencido",
@@ -316,7 +442,11 @@ export const ARTICLES: Article[] = [
         a: "Uma conferência mensal é suficiente para a maioria das empresas; quem participa de disputas semanais costuma revisar antes de cada envio de proposta.",
       },
     ],
-    related: ["documentos-exigidos-no-sicaf", "principais-pendencias-que-impedem-de-licitar", "o-que-e-sicaf"],
+    related: [
+      "cadastro-no-sicaf",
+      "documentos-exigidos-no-sicaf",
+      "o-que-e-sicaf",
+    ],
     ctaCategory: "renovacao",
     ctaText: "Quero regularizar meu cadastro",
   },

@@ -12,11 +12,23 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SITE } from "@/lib/site";
+import { TRACKING } from "@/lib/tracking";
+import {
+  absoluteImage,
+  absoluteUrl,
+  jsonLdScript,
+  organizationSchema,
+  websiteSchema,
+} from "@/lib/seo";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { TriageProvider } from "@/components/site/triage-context";
 import { TriageDialog } from "@/components/site/triage-dialog";
 import { CookieConsent } from "@/components/site/cookie-consent";
+import {
+  TrackingBodyNoscript,
+  TrackingHeadScripts,
+} from "@/components/site/tracking-scripts";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
@@ -84,13 +96,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: `${SITE.name} — Orientação em Licitações Públicas` },
+      { title: `${SITE.name} — Cadastro no SICAF e Licitações Públicas` },
       { name: "description", content: SITE.tagline },
+      { name: "keywords", content: SITE.keywords.join(", ") },
+      { name: "author", content: SITE.name },
+      {
+        name: "robots",
+        content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      },
+      { name: "googlebot", content: "index, follow" },
       { property: "og:site_name", content: SITE.name },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "pt_BR" },
+      { property: "og:url", content: absoluteUrl("/") },
+      { property: "og:image", content: absoluteImage(SITE.ogImage) },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "theme-color", content: "#ffffff" },
+      { name: "twitter:image", content: absoluteImage(SITE.ogImage) },
+      { name: "theme-color", content: "#0B1F3A" },
+      { name: "application-name", content: SITE.name },
+      ...(TRACKING.googleSiteVerification
+        ? [{ name: "google-site-verification", content: TRACKING.googleSiteVerification }]
+        : []),
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -101,30 +127,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "sitemap", type: "application/xml", href: absoluteUrl("/sitemap.xml") },
+      { rel: "alternate", type: "text/plain", href: "/llms.txt", title: "llms.txt" },
     ],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: SITE.name,
-          description: SITE.tagline,
-          email: SITE.email,
-          areaServed: "BR",
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          name: SITE.name,
-          inLanguage: "pt-BR",
-          description: SITE.tagline,
-        }),
-      },
-    ],
+    scripts: [jsonLdScript(organizationSchema()), jsonLdScript(websiteSchema())],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -137,8 +143,10 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="pt-BR">
       <head>
         <HeadContent />
+        <TrackingHeadScripts />
       </head>
       <body>
+        <TrackingBodyNoscript />
         {children}
         <Scripts />
       </body>

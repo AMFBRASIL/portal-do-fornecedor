@@ -1,12 +1,43 @@
+/**
+ * URL canônica do portal. Em produção, defina VITE_SITE_URL com o domínio final
+ * (ex.: https://portal.seudominio.com.br) — sitemap, canonical e Open Graph dependem disso.
+ */
+const SITE_URL =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_SITE_URL?.replace(/\/$/, "")) ||
+  "https://portal-do-fornecedor.lovable.app";
+
 export const SITE = {
   name: "CAD | BRASIL",
   fullName: "CAD | BRASIL — Portal de Orientação em Licitações",
-  tagline: "Portal independente de orientação sobre licitações, SICAF e Compras.gov.br",
+  tagline:
+    "Portal independente de orientação sobre cadastro no SICAF, licitações públicas e Compras.gov.br",
+  url: SITE_URL,
+  ogImage: "/og-default.png",
+  logo: "/favicon.ico",
   partnerName: "CADBRASIL",
   partnerUrl: "https://www.cadbrasil.com.br",
   whatsapp: "https://wa.me/551121220202",
   whatsappDisplay: "(11) 2122-0202",
   email: "contato@cadbrasil.com.br",
+  sameAs: [
+    "https://www.cadbrasil.com.br",
+    "https://cadastro.cadbrasil.com.br",
+  ],
+  keywords: [
+    "SICAF",
+    "cadastro no SICAF",
+    "cadastrar no SICAF",
+    "SICAF Digital",
+    "como cadastrar no SICAF",
+    "documentos SICAF",
+    "renovar SICAF",
+    "licitações públicas",
+    "vender para o governo",
+    "Compras.gov.br",
+    "fornecedor governo",
+    "cadastro de fornecedor",
+    "CADBRASIL",
+  ],
 } as const;
 
 export const LEGAL_DISCLAIMER =
@@ -204,7 +235,11 @@ export const FAQ = [
   },
   {
     q: "Preciso ter SICAF para participar?",
-    a: "O SICAF é utilizado no cadastramento e na habilitação de fornecedores em contratações do governo federal e em muitos processos conduzidos pelo Compras.gov.br. Estados e municípios podem usar sistemas próprios. Sempre verifique no edital qual cadastro é exigido.",
+    a: "O cadastro no SICAF é utilizado na habilitação de fornecedores em contratações do governo federal e em muitos processos no Compras.gov.br. Estados e municípios podem usar sistemas próprios. Sempre verifique no edital qual cadastro é exigido.",
+  },
+  {
+    q: "Como fazer o cadastro no SICAF?",
+    a: "Organize documentos e certidões, acesse o ambiente oficial com gov.br ou certificado digital, credencie o CNPJ e complete os níveis de habilitação. Neste portal você encontra o guia passo a passo e uma pré-triagem gratuita para identificar se precisa de cadastro novo, renovação ou correção de pendências.",
   },
   {
     q: "Quais documentos são normalmente exigidos?",
