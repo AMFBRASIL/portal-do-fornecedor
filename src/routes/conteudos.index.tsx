@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { ARTICLES } from "@/lib/articles";
+import { SITE } from "@/lib/site";
 import { trackEvent } from "@/lib/analytics";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { breadcrumbSchema, jsonLdScript, pageHead } from "@/lib/seo";
@@ -45,25 +46,24 @@ function ConteudosPage() {
 
       <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {ARTICLES.map((article) => (
-          <article key={article.slug} className="card-interactive flex flex-col p-6">
+          <Link
+            key={article.slug}
+            to="/conteudos/$slug"
+            params={{ slug: article.slug }}
+            onClick={() => trackEvent("artigo_click", { slug: article.slug })}
+            className="card-interactive flex flex-col p-6 text-foreground no-underline hover:[&_h2]:text-primary"
+          >
             <p className="inline-flex items-center gap-1.5 text-xs font-bold tracking-wider text-primary uppercase">
               <BookOpen className="size-3.5" aria-hidden /> {article.topic}
             </p>
-            <h2 className="mt-3 text-lg leading-snug font-bold">
-              <Link
-                to="/conteudos/$slug"
-                params={{ slug: article.slug }}
-                onClick={() => trackEvent("artigo_click", { slug: article.slug })}
-                className="after:absolute after:inset-0 hover:text-primary"
-              >
-                {article.h1}
-              </Link>
+            <h2 className="mt-3 text-lg leading-snug font-bold transition-colors">
+              {article.h1}
             </h2>
             <p className="mt-2.5 flex-1 text-sm text-muted-foreground">{article.description}</p>
             <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
               Ler artigo <ArrowRight className="size-4" aria-hidden />
             </span>
-          </article>
+          </Link>
         ))}
       </div>
 
